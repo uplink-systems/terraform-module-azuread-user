@@ -86,56 +86,9 @@ output "azuread_user_credentials" {
 
 ### Known Issues
 
-<details>
-<summary><b>Parental control attributes</b></summary>
-
-######
-The attributes 'parental_control.age_group' and 'parental_control.consent_provided_for_minor' can't be configured in one apply run. This is by design. The attribute 'parental_control.age_group' must be configured prior to 'parental_control.consent_provided_for_minor'.  
-######
-</details>
-
-<details>
-<summary><b>(Optional) possible prospective attribute/feature: 'sponsors'</b></summary>
-
-######
-The Azure AD attribute 'sponsors' is already available in Azure AD and can be set via Entra admin portal. The implementation in the Azure AD provider is currently still missing at the time of writing but may probably be available in a future version. *var.user.sponsors* and *data.azuread_user.sponsors* is already made available in the module but is not yet having any impacts until this feature becomes available.  
-
-<pre>
-#####  main.tf
-resource "azuread_user" "user" {
-  # sponsors - used for admins only
-  sponsors              = var.user.is_admin == false ? null : (var.user.sponsors == null ? null : data.azuread_users.sponsors.object_ids)
-}
-</pre>
-######
-</details>
-
-<details>
-<summary><b>(Optional) possible prospective attribute/feature: 'certificate_user_ids'</b></summary>
-
-######
-The Azure AD attribute 'certificateUserIds' is already available in Azure AD and can be set via Entra admin portal. The implementation in the Azure AD provider is currently still missing at the time of writing but may probably be available in a future version.
-
-<pre>
-#####  variables.tf
-  variable "user" {
-    type = object({
-      ...
-      certificate_user_ids    = optional(list(string, []))
-      ...
-    })
-  }
-#####  local.tf
-  locals {
-    certificate_user_ids  = [ "X509:<PN>${local.user_principal_name}", "X509:<RFC822>${local.user_principal_name}" ]
-  }
-#####  main.tf
-  resource "azuread_user" "user" {
-    certificate_user_ids  = var.user.certificate_user_ids == null ? locals.certificate_user_ids : var.user.certificate_user_ids
-  }
-</pre>
-######
-</details>
+Known issues are documented with the GitHub repo's issues functionality. Please filter the issues by **Types** and select **Known Issue** to get the appropriate issues and read the results carefully before using the module to avoid negative impacts on your infrastructure.  
+  
+<a name="known_issues"></a> [list of Known Issues](https://github.com/uplink-systems/terraform-module-azuread-user/issues?q=type%3A%22known%20issue%22)
 
 ## Notes
 
