@@ -21,6 +21,7 @@ variable "user" {
     show_in_address_list        = optional(bool, true)
     employee_id                 = optional(string, null)
     employee_type               = optional(string, null)
+    employee_hire_date          = optional(string, null)
     job_title                   = optional(string, null)
     company_name                = optional(string, null)
     division                    = optional(string, null)
