@@ -13,21 +13,6 @@ The module uses the following guidelines:
 >The module's outputs may expose sensitive data like user credentials in the CLI as well as in the file system.  
 >Therefore it should only be used by trusted admins and store its output to highly restricted locations.  
 
-#### Tasks & ToDos
-
-- [x] Create random strings as passwords
-- [x] Create and manage member users in Azure AD
-- [x] Add auto-build rules for username, mail, mail nickname, display name and UPN
-- [x] Extend creating/managing users with minimum required attributes only to creating/managing users with all available attributes in Azure AD
-- [x] Create and manage ouput file for Azure AD users' credentials
-- [x] Implement code to differ between normal users and admins
-- [x] Implement code to allow non-default values for username, mail, mail nickname, display name and UPN
-- [x] \(Optional) Apply input variable validation rules if necessary to match available resource values
-- [ ] \(Optional) Apply input variable validation rules if necessary to match business standards
-- [ ] Create and manage modules outputs
-- [x] Document module with README.md
-- [ ] \(Optional) Review code regularly for possible improvements and updates
-
 ### Requirements
 
 | Name | Version |
