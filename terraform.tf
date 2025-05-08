@@ -6,7 +6,7 @@ terraform {
   required_providers {
     azuread = {
       source  = "registry.terraform.io/hashicorp/azuread"
-      version = "~> 3.0"
+      version = "~> 3.1"
     }
     local = {
       source = "registry.terraform.io/hashicorp/local"
