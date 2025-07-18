@@ -85,7 +85,7 @@ The value for *var.user.given_name* is mandatory. Besides setting the value as u
 
 #### 'var.user.surname'
 
-The value for *var.user.surname* is mandatory. Besides setting the value as user's 'given_name' attribute it is used in auto-build rules for 'displayal_name'_name', 'user_princip, 'mail' and 'mail_nickname' attributes. *local.surname* transforms German special characters like 'ä', 'ö', 'ü' and 'ß' to common non-special characters and replaces spaces with a dot.   
+The value for *var.user.surname* is mandatory. Besides setting the value as user's 'given_name' attribute it is used in auto-build rules for 'display_name', 'user_principal_name, 'mail' and 'mail_nickname' attributes. *local.surname* transforms German special characters like 'ä', 'ö', 'ü' and 'ß' to common non-special characters and replaces spaces with a dot.   
 
 #### 'var.user.display_name'
 
