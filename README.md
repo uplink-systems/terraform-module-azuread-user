@@ -8,7 +8,7 @@ The module uses the following guidelines:
 * Users
   * User UPNs always use the primary domain as their UPN suffix
   * Admin UPNs always use the initial domain as their UPN suffix
-  * All UPNs must not contain language-specific 'special' characters; the module translate these characters to 'normal' characters
+  * All UPNs must not contain language-specific 'special' characters; the module translates these characters to 'normal' characters
   
 > [!WARNING]
 >The module's outputs may expose sensitive data like user credentials in the CLI as well as in the file system.  
