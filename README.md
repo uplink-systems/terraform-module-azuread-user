@@ -8,6 +8,7 @@ The module uses the following guidelines:
 * Users
   * User UPNs always use the primary domain as their UPN suffix
   * Admin UPNs always use the initial domain as their UPN suffix
+  * All UPNs must not contain language-specific 'special' characters; the module translate these characters to 'normal' characters
   
 > [!WARNING]
 >The module's outputs may expose sensitive data like user credentials in the CLI as well as in the file system.  
@@ -17,10 +18,10 @@ The module uses the following guidelines:
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9.0 |
-| <a name="requirement_azuread"></a> [hashicorp\/azuread](#requirement\_azuread) | ~> 3.1 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.12.0 |
+| <a name="requirement_azuread"></a> [hashicorp\/azuread](#requirement\_azuread) | ~> 3.4 |
 | <a name="requirement_local"></a> [hashicorp\/local](#requirement\_local) | ~> 2.5 |
-| <a name="requirement_random"></a> [hashicorp\/random](#requirement\_random) | ~> 3.6 |
+| <a name="requirement_random"></a> [hashicorp\/random](#requirement\_random) | ~> 3.7 |
 
 ### Resources
 
@@ -35,6 +36,7 @@ The module uses the following guidelines:
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_user"></a> [user](#input\_user) | 'var.user' is the main variable for azuread_user resource settings | <pre>type = object({<br>  given_name                  = string<br>  surname                     = string<br>  display_name                = optional(string, null)<br>  user_principal_name         = optional(string, null)<br>  account_enabled             = optional(bool, true)<br>  force_password_change       = optional(bool, true)<br>  disable_password_expiration = optional(bool, false)<br>  disable_strong_password     = optional(bool, false)<br>  is_admin                    = optional(bool, false)<br>  preferred_language          = optional(string, "en-US")<br>  usage_location              = optional(string, null)<br>  mail_nickname               = optional(string, null)<br>  mail                        = optional(string, null)<br>  other_mails                 = optional(list(string), [])<br>  show_in_address_list        = optional(bool, true)<br>  employee_id                 = optional(string, null)<br>  employee_type               = optional(string, null)<br>  job_title                   = optional(string, null)<br>  company_name                = optional(string, null)<br>  division                    = optional(string, null)<br>  department                  = optional(string, null)<br>  cost_center                 = optional(string, null)<br>  manager_id                  = optional(string, null)<br>  sponsors                    = optional(list(string), [])<br>  country                     = optional(string, null)<br>  state                       = optional(string, null)<br>  postal_code                 = optional(string, null)<br>  city                        = optional(string, null)<br>  street_address              = optional(string, null)<br>  office_location             = optional(string, null)<br>  business_phones             = optional(list(string), [])<br>  mobile_phone                = optional(string, null)<br>  fax_number                  = optional(string, null)<br>  parental_control            = optional(object({<br>    enabled                     = optional(bool, true)<br>    age_group                   = optional(string, null)<br>    consent_provided_for_minor  = optional(string, null)<br>  }), { enabled = false })<br>  export                    = optional(object({<br>    enabled                     = optional(bool, true)<br>    file                        = optional(string, null)<br>    path                        = optional(string, null)<br>  }), { enabled = true })<br>})<br></pre> | none | yes |
+| <a name="input_character_map"></a> [character\_map](#input\_character_map) | 'var.character_map' is an optional variable to translate country specific characters to 'default' characters for sAMAccountName or UPN | <pre>type = map</pre> | <pre>{<br>  "Ä"  = "Ae"<br>  "ä"  = "ae"<br>  "Á"  = "A"<br>  "á"  = "a"<br>  "À"  = "A"<br>  "à"  = "a"<br>  "Â"  = "A"<br>  "â"  = "a"<br>  "Å"  = "A"<br>  "å"  = "a"<br>  "Ą"  = "A"<br>  "ą"  = "a"<br>  "Æ"  = "Ae"<br>  "æ"  = "ae"<br>  "Ć"  = "C"<br>  "ć"  = "c"<br>  "Ç"  = "C"<br>  "ç"  = "c"<br>  "Č"  = "C"<br>  "č"  = "c"<br>  "Ď"  = "D"<br>  "ď"  = "d"<br>  "Đ"  = "Dj"<br>  "đ"  = "dj"<br>  "È"  = "E"<br>  "É"  = "E"<br>  "é"  = "e"<br>  "è"  = "e"<br>  "Ê"  = "E"<br>  "ê"  = "e"<br>  "Ë"  = "E"<br>  "ë"  = "e"<br>  "Ę"  = "E"<br>  "ę"  = "e"<br>  "Í"  = "i"<br>  "í"  = "i"<br>  "Î"  = "I"<br>  "î"  = "i"<br>  "Ï"  = "i"<br>  "ï"  = "i"<br>  "Ĺ"  = "L"<br>  "ĺ"  = "l"<br>  "Ľ"  = "L"<br>  "ľ"  = "l"<br>  "Ł"  = "L"<br>  "ł"  = "l"<br>  "Ń"  = "N"<br>  "ń"  = "n"<br>  "Ň"  = "N"<br>  "ň"  = "n"<br>  "Ñ"  = "N"<br>  "ñ"  = "n"<br>  "Ö"  = "Oe"<br>  "ö"  = "oe"<br>  "Ó"  = "O"<br>  "ó"  = "o"<br>  "Ô"  = "O"<br>  "ô"  = "o"<br>  "Œ"  = "Oe"<br>  "œ"  = "oe"<br>  "Ŕ"  = "R"<br>  "ŕ"  = "r"<br>  "Ś"  = "S"<br>  "ś"  = "s"<br>  "Š"  = "S"<br>  "š"  = "s"<br>  "Ť"  = "T"<br>  "ť"  = "t"<br>  "ß"  = "ss"<br>  "Ü"  = "Ue"<br>  "ü"  = "ue"<br>  "Ú"  = "u"<br>  "ú"  = "u"<br>  "Ù"  = "U"<br>  "ù"  = "u"<br>  "Û"  = "U"<br>  "û"  = "u"<br>  "Ý"  = "Y"<br>  "ý"  = "y"<br>  "Ÿ"  = "Y"<br>  "ÿ"  = "y"<br>  "Ź"  = "Z"<br>  "ź"  = "z"<br>  "Ż"  = "Z"<br>  "ż"  = "z"<br>  "Ž"  = "Z"<br>  "ž"  = "z"<br>}</pre> | no |
 
 ### Outputs
 
@@ -141,3 +143,7 @@ Examples for valid paths:
 ../terraform/files/output
 C:/terraform/files/output
 </pre>
+
+**'var.character_map'**  
+The value for *var.character_map* is a mapping of language-specific 'special' characters and their pendant as 'normal' character. The module uses this map to create a UPN from the *var.user.given_name* and *var.user.surname* attributes without 'special' characters because these characters are not allowed and would cause the deployment to fail.  
+The map already contains a default value with the most common 'special' characters used in European countries with a Latin alphabet.
