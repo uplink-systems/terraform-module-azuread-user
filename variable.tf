@@ -2,8 +2,12 @@
 #   variables.tf                                                                                   #
 ####################################################################################################
 
+variable "password" {
+  default = {}
+}
+
 variable "user" {
-  type = object({
+  type    = object({
     given_name                  = string
     surname                     = string
     display_name                = optional(string, null)
@@ -13,7 +17,7 @@ variable "user" {
     disable_password_expiration = optional(bool, false)
     disable_strong_password     = optional(bool, false)
     is_admin                    = optional(bool, false)
-    preferred_language          = optional(string, "en-US")
+    preferred_language          = optional(string, null)
     usage_location              = optional(string, null)
     mail_nickname               = optional(string, null)
     mail                        = optional(string, null)
