@@ -122,7 +122,7 @@ The value for *var.user.sponsors* is optional and represents one or more user pr
 
 The value for *var.user.is_admin* (true/false) is used to force the use of admin-related values for some attributes:  
 
-* 'random_string.password.length' --> force value '16' instead of default value '12'  
+* 'random_string.password.length' --> force minimum value '16' instead of minimum default value '12'  
 * 'azuread_user.user.disable_strong_password' -> force value 'false'  
 * 'azuread_user.user.show_in_address_list' --> force value 'false'  
 * 'azuread_user.user.manager_id' --> force value 'null'  
