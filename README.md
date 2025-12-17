@@ -19,9 +19,9 @@ The module uses the following guidelines:
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.12.0 |
-| <a name="requirement_azuread"></a> [hashicorp\/azuread](#requirement\_azuread) | ~> 3.4 |
-| <a name="requirement_local"></a> [hashicorp\/local](#requirement\_local) | ~> 2.5 |
-| <a name="requirement_random"></a> [hashicorp\/random](#requirement\_random) | ~> 3.7 |
+| <a name="requirement_azuread"></a> [hashicorp\/azuread](#requirement\_azuread) | >= 3.6 |
+| <a name="requirement_local"></a> [hashicorp\/local](#requirement\_local) | >= 2.6 |
+| <a name="requirement_random"></a> [hashicorp\/random](#requirement\_random) | >= 3.7 |
 
 ### Resources
 
