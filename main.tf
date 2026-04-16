@@ -32,6 +32,7 @@ resource "azuread_user" "user" {
   show_in_address_list        = var.user.is_admin == false ? var.user.show_in_address_list : false
   employee_id                 = var.user.employee_id
   employee_type               = var.user.employee_type
+  employee_hire_date          = var.user.employee_hire_date
   job_title                   = var.user.job_title
   company_name                = var.user.company_name
   division                    = var.user.division
