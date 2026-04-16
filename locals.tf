@@ -21,4 +21,19 @@ locals {
       )
     )
   }
+  password  = {
+    length            = {
+      admin             = try(var.password.length, 16) >= 16 ? try(var.password.length, 16) : 16
+      user              = try(var.password.length, 12) >= 12 ? try(var.password.length, 12) : 12
+    }
+    lower             = try(var.password.lower, true)
+    min_lower         = try(var.password.min_lower, 1)
+    min_numeric       = try(var.password.min_numeric, 1)
+    min_special       = try(var.password.min_special, 1)
+    min_upper         = try(var.password.min_upper, 1)
+    numeric           = try(var.password.numeric, true)
+    override_special  = try(var.password.override_special, "!#$%&*()-_=+[]{}<>:?")
+    special           = try(var.password.special, true)
+    upper             = try(var.password.upper, true)
+  }
 }

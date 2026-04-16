@@ -4,13 +4,16 @@
 
 # generate password
 resource "random_password" "password" {
-  length                = var.user.is_admin == false ? 12 : 16
-  special               = true
-  min_lower             = 1
-  min_numeric           = 1
-  min_special           = 1
-  min_upper             = 1
-  override_special      = "!#$%&*()-_=+[]{}<>:?"
+  length                      = var.user.is_admin == false ? local.password.length.user : local.password.length.admin
+  lower                       = local.password.lower
+  min_lower                   = local.password.min_lower
+  min_numeric                 = local.password.min_numeric
+  min_special                 = local.password.min_special
+  min_upper                   = local.password.min_upper
+  numeric                     = local.password.numeric
+  override_special            = local.password.override_special
+  special                     = local.password.special
+  upper                       = local.password.upper
 }
 
 # create user
@@ -24,7 +27,7 @@ resource "azuread_user" "user" {
   force_password_change       = var.user.force_password_change
   disable_password_expiration = var.user.disable_password_expiration
   disable_strong_password     = var.user.is_admin == false ? var.user.disable_strong_password : false
-  preferred_language          = var.user.preferred_language
+  preferred_language          = var.user.preferred_language == null ? "en-US" : var.user.preferred_language
   usage_location              = var.user.usage_location
   mail_nickname               = var.user.mail_nickname == null ? local.mail_nickname : var.user.mail_nickname
   mail                        = var.user.mail == null ? local.mail : var.user.mail
@@ -52,17 +55,17 @@ resource "azuread_user" "user" {
   consent_provided_for_minor  = var.user.parental_control.consent_provided_for_minor
   depends_on                  = [ random_password.password ]
   lifecycle {
-    ignore_changes  = [ force_password_change, password, preferred_language, usage_location ]
+    ignore_changes              = [ force_password_change, password, preferred_language, usage_location ]
   }
 }
 
 # create credential output file
 resource "local_sensitive_file" "credential" {
-  count       = var.user.export.enabled == true ? 1 : 0
-  content     = <<-EOT
+  count                       = var.user.export.enabled == true ? 1 : 0
+  content                     = <<-EOT
     ${azuread_user.user.user_principal_name}
     ${nonsensitive(random_password.password.result)}
   EOT
-  filename    = local.export.filename
-  depends_on  = [ azuread_user.user ]
+  filename                    = local.export.filename
+  depends_on                  = [ azuread_user.user ]
 }
